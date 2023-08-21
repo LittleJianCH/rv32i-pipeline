@@ -1,0 +1,12 @@
+cradle:
+  cabal:
+    - path: "./src"
+      component: "lib:rv32i-pipeline"
+    - path: "./tests/doctests.hs"
+      component: "rv32i-pipeline:doctests"
+    - path: "./tests"
+      component: "rv32i-pipeline:test-library"
+    - path: "./bin/Clashi.hs"
+      component: "rv32i-pipeline:exe:clashi"
+    - path: "./bin/Clash.hs"
+      component: "rv32i-pipeline:exe:clash"
