@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeApplications #-}
+
 module RV32I.Regfile where
 
 import Clash.Prelude
@@ -13,11 +15,11 @@ regfile
   -> Signal dom (BV32, BV32)
 regfile addrA addrB addrW dataW = view <*> regVec
   where
-    regVec :: Signal dom (Vec 32 BV32)
-    regVec = register (repeat 0) (replace <$> addrW <*> dataW <*> regVec)
+    regVec :: Signal dom (Vec 31 BV32)
+    regVec = register (repeat 0) (replace <$> (addrW - 1) <*> dataW <*> regVec)
 
-    visit :: Reg -> Vec 32 BV32 -> BV32
+    visit :: Reg -> Vec 31 BV32 -> BV32
     visit 0 _    = 0
-    visit n regs = regs !! n
+    visit n regs = regs !! (n - 1)
 
     view = uncurry (liftA2 (,)) <$> liftA2 (,) (visit <$> addrA) (visit <$> addrB)
