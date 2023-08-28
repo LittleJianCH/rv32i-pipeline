@@ -1,5 +1,3 @@
-{-# LANGUAGE PartialTypeSignatures #-}
-
 module RV32I.Regfile where
 
 import Clash.Prelude
@@ -7,7 +5,7 @@ import Clash.Prelude
 import RV32I.Types (Reg, BV32)
 
 regfile
-  :: (HiddenClockResetEnable dom)
+  :: forall dom. HiddenClockResetEnable dom
   => Signal dom Reg
   -> Signal dom Reg
   -> Signal dom Reg
@@ -15,7 +13,7 @@ regfile
   -> Signal dom (BV32, BV32)
 regfile addrA addrB addrW dataW = view <*> regVec
   where
-    regVec :: Signal _ (Vec 32 BV32)
+    regVec :: Signal dom (Vec 32 BV32)
     regVec = register (repeat 0) (replace <$> addrW <*> dataW <*> regVec)
 
     visit :: Reg -> Vec 32 BV32 -> BV32
