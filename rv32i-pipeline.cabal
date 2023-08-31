@@ -124,6 +124,7 @@ test-suite test-library
   main-is: unittests.hs
   other-modules:
     Tests.Example.Project
+    Tests.RV32I.ALU
   build-depends:
     rv32i-pipeline,
     QuickCheck,
