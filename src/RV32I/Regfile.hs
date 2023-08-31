@@ -5,6 +5,7 @@ module RV32I.Regfile where
 import Clash.Prelude
 
 import RV32I.Types (Reg, BV32)
+import Data.Function (on)
 
 regfile
   :: forall dom. HiddenClockResetEnable dom
@@ -16,10 +17,11 @@ regfile
 regfile addrA addrB addrW dataW = view <*> regVec
   where
     regVec :: Signal dom (Vec 31 BV32)
-    regVec = register (repeat 0) (replace <$> (addrW - 1) <*> dataW <*> regVec)
+    regVec = register (repeat 0) (liftA3 replace (addrW - 1) dataW regVec)
 
     visit :: Reg -> Vec 31 BV32 -> BV32
     visit 0 _    = 0
     visit n regs = regs !! (n - 1)
 
-    view = uncurry (liftA2 (,)) <$> liftA2 (,) (visit <$> addrA) (visit <$> addrB)
+    view :: Signal dom (Vec 31 BV32 -> (BV32, BV32))
+    view = uncurry (liftA2 (,)) <$> (liftA2 (,) `on` (visit <$>)) addrA addrB
