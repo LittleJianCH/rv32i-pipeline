@@ -125,10 +125,12 @@ test-suite test-library
   other-modules:
     Tests.Example.Project
     Tests.RV32I.ALU
+    Tests.RV32I.Regfile
   build-depends:
     rv32i-pipeline,
     QuickCheck,
     hedgehog,
     tasty >= 1.2 && < 1.5,
     tasty-hedgehog,
-    tasty-th
+    tasty-th,
+    containers

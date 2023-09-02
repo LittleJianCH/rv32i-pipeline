@@ -1,4 +1,6 @@
-module RV32I.ALU where
+module RV32I.ALU (
+  alu
+) where
 
 import Clash.Prelude
 
