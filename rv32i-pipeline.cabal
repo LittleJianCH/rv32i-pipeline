@@ -84,6 +84,7 @@ library
   exposed-modules:
     Example.Project
     RV32I.ALU
+    RV32I.Decoder
     RV32I.Regfile
     RV32I.Types
   default-language: Haskell2010
