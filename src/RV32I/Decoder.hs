@@ -2,7 +2,7 @@ module RV32I.Decoder where
 
 import Clash.Prelude
 
-import RV32I.Types
+import RV32I.Types hiding (rs1, rs2)
 
 decoder :: BV32 -> (AluInstr, PCInstr, MemInstr, WBInstr)
 decoder i = case i of
@@ -94,7 +94,7 @@ decoder i = case i of
         sImmI = signExtend immI
         uImmI = extend immI
         immS = signExtend $ slice d31 d25 i ++# slice d11 d7 i
-        immB = signExtend $ slice d31 d31 i ++# slice d7 d7 i ++# slice d30 d25 i ++# slice d11 d8 i ++# $(bLit "00")
+        immB = signExtend $ slice d31 d31 i ++# slice d7 d7 i ++# slice d30 d25 i ++# slice d11 d8 i ++# $(bLit "0")
         immU = slice d31 d12 i ++# $(bLit "000000000000")
         immJ = slice d31 d31 i ++# slice d19 d12 i ++# slice d20 d20 i ++# slice d30 d21 i ++# $(bLit "0")
 
