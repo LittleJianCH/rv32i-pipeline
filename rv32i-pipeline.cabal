@@ -86,6 +86,7 @@ library
     Example.Project
     RV32I.ALU
     RV32I.Decoder
+    RV32I.Fetcher
     RV32I.PC
     RV32I.Regfile
     RV32I.Types
