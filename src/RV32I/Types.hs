@@ -6,11 +6,12 @@ module RV32I.Types (
   MemSize(..),
   MemInstr(..),
   WBInstr(..),
+  MMIOInstr(..),
   BV32,
   Reg
 ) where
 
-import Clash.Prelude (Eq, Show, Generic, BitVector, NFDataX, Maybe)
+import Clash.Prelude (Eq, Show, Generic, BitVector, NFDataX, Maybe, Bool)
 
 type BV32 = BitVector 32
 type Reg = BitVector 5
@@ -61,5 +62,11 @@ data MemInstr = ReadMem MemSize | WriteMem MemSize | PassbyMem
   deriving anyclass NFDataX
 
 data WBInstr = WriteAlu Reg | WritePC Reg | PassbyWB
+  deriving stock (Generic, Show, Eq)
+  deriving anyclass NFDataX
+
+data MMIOInstr = MMIOInstr
+  { mmioAddr :: BV32
+  , mmioData :: Maybe BV32 } -- Nothing for read
   deriving stock (Generic, Show, Eq)
   deriving anyclass NFDataX
