@@ -61,7 +61,7 @@ data MemInstr = ReadMem MemSize | WriteMem MemSize | PassbyMem
   deriving stock (Generic, Show, Eq)
   deriving anyclass NFDataX
 
-data WBInstr = WriteAlu Reg | WritePC Reg | PassbyWB
+newtype WBInstr = WriteReg Reg
   deriving stock (Generic, Show, Eq)
   deriving anyclass NFDataX
 
