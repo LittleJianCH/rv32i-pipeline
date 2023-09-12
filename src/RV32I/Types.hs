@@ -11,7 +11,7 @@ module RV32I.Types (
   Reg
 ) where
 
-import Clash.Prelude (Eq, Show, Generic, BitVector, NFDataX, Maybe, Bool)
+import Clash.Prelude (Eq, Show, Generic, BitVector, NFDataX, Maybe, Bool, Ord)
 
 type BV32 = BitVector 32
 type Reg = BitVector 5
@@ -53,8 +53,8 @@ data PCInstr = Branch BV32 | Jump BV32 | JumpAlu
   deriving stock (Generic, Show, Eq)
   deriving anyclass NFDataX
 
-data MemSize = Byte | Half | Word | UByte | UHalf
-  deriving stock (Generic, Show, Eq)
+data MemSize =  UByte | Byte | UHalf | Half | Word
+  deriving stock (Generic, Show, Eq, Ord)
   deriving anyclass NFDataX
 
 data MemInstr = ReadMem MemSize | WriteMem MemSize | PassbyMem
