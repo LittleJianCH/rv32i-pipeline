@@ -1,6 +1,6 @@
 {
   description = "Haskell development environment for RV32I-Pipeline";
-  # based on the haskell development enviorment example from zero-to-nix
+  # based on the haskell development environment example from zero-to-nix
   # thank u!
 
   # Flake inputs
